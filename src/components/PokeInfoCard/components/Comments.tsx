@@ -7,7 +7,7 @@ export function Comments() {
 
     async function handleSubmit(e: any) {
         e.preventDefault()
-        if(e.target.comment.value.trim() === '') return
+        if (e.target.comment.value.trim() === '') return
         const comment = {
             msg: e.target.comment.value,
             user: 'Usuário',
@@ -35,29 +35,48 @@ export function Comments() {
                             placeholder="Insira um comentário sobre o pokemon..."
                             name="text"
                             type="textarea"
-
-
                         />
-
                     </Col>
                     <Col xs={2}>
-                        <Button className="my-2" color="primary" outline style={{
-                            fontSize: "14px",
-                        }}>
+                        <Button className="my-2" color="primary" outline style={{ fontSize: "14px" }}>
                             Enviar
                         </Button>
                     </Col>
                 </Row>
             </Form>
 
-            <div className="px-2" style={{
-                maxHeight: "230px",
-                overflowY: "auto",
-                backgroundColor: "#ffffff",
+            <div style={{
+                minHeight: '266px',
+                display: 'flex',
             }}>
-                {comments.map((comment: any) => {
-                    return <Comment {...comment} />
-                })}
+                {comments.length === 0 ? (
+                    <div
+                        className="w-100 mt-2 d-flex justify-content-center align-items-center flex-column "
+                    >
+                        <img style={{
+                            width: '75px',
+                            opacity: 0.5,
+                            
+                        }}
+                            src="https://i.pinimg.com/originals/54/c4/57/54c4570f8a9927e272272e996d031f58.png"
+                        />
+                        <span className="text-muted text-center">
+                            Seja o primeiro a comentar <br /> sobre esse pokemon.
+                        </span>
+                    </div>
+                ) :(
+                    <div className="px-2" style={{
+                        maxHeight: "230px",
+                        overflowY: "auto",
+                width: '100%'
+
+                    }}>
+                        {comments.map((comment: any) => {
+                            return <Comment {...comment} />
+                        })}
+                    </div>
+                )}
+                
             </div>
 
         </div>)
@@ -73,7 +92,7 @@ function Comment({ msg, user, created_at }: any) {
                 color: 'rgb(61, 48, 172)'
             }}>{user}</span>
             <Row>
-                <Col xs={8} style={{textTransform: 'capitalize'}}>
+                <Col xs={8} style={{ textTransform: 'capitalize' }}>
                     <CardText className="text-muted" style={{ fontSize: "12px", fontStyle: 'italic' }}>{msg}</CardText>
                 </Col>
                 <Col xs={4} >
