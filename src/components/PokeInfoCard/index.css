@@ -1,0 +1,45 @@
+.poke-info-card{
+    width: 400px;
+    height: 100%;
+    background-color: #49D0B0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px !important;
+    overflow: hidden;
+}
+
+.poke-title{
+    top: 15px;
+    left: 15px;
+    color: rgba(255, 255, 255, 0.753);
+}
+
+.poke-info-card > .pokemon{
+    z-index: 1;
+    width: 150px;
+    margin: 50px;
+}
+
+.poke-info-card .info{
+   border-radius: 20px 20px 0 0px ;
+   padding: 20px 20px;
+}
+
+.pokeball-img{
+    position: absolute;
+    top: 90px;
+    left:105px;
+    width: 200px;
+    opacity: 0.15;
+}
+
+.info{
+    width: 100%;
+    z-index: 2;
+}
+
+.tab-style{
+    border-bottom: 2px solid rgb(61, 48, 172);
+    color: red !important;
+}
