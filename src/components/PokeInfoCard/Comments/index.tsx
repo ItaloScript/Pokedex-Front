@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { Button, Card, CardText, Col, Form, Input, Row } from "reactstrap"
+import CommentsService from "../../../services/comments"
 import { CommentCard } from "./CommentCard"
 import { RegisterCommentScreen } from "./RegisterCommentScreen"
 
-export function Comments() {
+export function Comments({pokemonId, color}: {pokemonId: number, color:string}) {
 
     const [needToRegister, setNeedToRegister] = useState(false)
     const [comments, setComments] = useState<Array<any>>([])
@@ -14,16 +15,25 @@ export function Comments() {
         }
     },[])
 
+    useEffect(()=>{
+        CommentsService.getCommentsByPokemonId(pokemonId).then((response:any)=>{
+            setComments(response)
+        })
+    },[pokemonId])
+
+
     async function handleSubmit(e: any) {
         e.preventDefault()
         if (e.target.comment.value.trim() === '') return
         const user_data = JSON.parse((localStorage.getItem('user_data') as string))
         
-        const comment = {
-            msg: e.target.comment.value,
-            user: user_data.name,
-            created_at: new Date()
-        }
+        const comment = await CommentsService.createComment({
+            comment: e.target.comment.value,
+            name: user_data.name,
+            email: user_data.email,
+            pokemonId:  pokemonId
+        })
+        
         setComments([comment, ...comments])
         e.target.reset()
 
@@ -85,8 +95,10 @@ export function Comments() {
                         overflowY: "auto",
                         width: '100%'
                     }}>
-                        {comments.map((comment: any) => {
-                            return <CommentCard key={comment.id} {...comment} />
+                        {[...comments].sort(
+                            (a:any, b:any) => new Date(b.created_at._seconds*1000).getTime() - new Date(a.created_at._seconds*1000).getTime() 
+                        ).map((comment: any) => {
+                            return <CommentCard key={comment.id} {...comment} color={color} />
                         })}
                     </div>
                 )}

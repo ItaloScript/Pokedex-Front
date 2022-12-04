@@ -64,7 +64,7 @@ export function PokeInfoCard({ idPokemon }: any) {
                     <About data={pokemonData} />
                 </TabPane>
                 <TabPane tabId="2">
-                    <Comments />
+                    <Comments color={typeColor[pokemonData.types[0].type.name]} pokemonId={pokemonData.id} />
                 </TabPane>
             </TabContent>
         </div>
