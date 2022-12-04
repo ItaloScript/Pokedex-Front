@@ -2,6 +2,8 @@ import { Col, Progress, Row } from "reactstrap";
 import { statsList } from "../../../constants/statsList";
 
 export function About({data}:any) {
+
+   
     return (
         <>
             <div className="d-flex pt-4">
@@ -25,7 +27,7 @@ export function About({data}:any) {
             </div>
 
             {data.stats.map((item:any)=>(
-                <Row className="d-flex mx-1 mb-3  align-items-center" style={{ fontSize: '14px' }}>
+                <Row id={item.stat.name} key={item.stat.name} className="d-flex mx-1 mb-3  align-items-center" style={{ fontSize: '14px' }}>
                 <Col style={{ fontWeight: '600', color: '#00000068', margin:0, padding:0 }} xs={4}> {statsList[item.stat.name].name}</Col>
                 <Col xs={2}> { item.base_stat}</Col>
                 <Col xs={6}>

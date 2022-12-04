@@ -14,7 +14,7 @@ export function PokeCard({ pokedata, onClick}: any) {
                     <h2 className='poke-card-name'>{pokedata.name}</h2>
                     <div>
                         {pokedata.types.map((x: any) => {
-                            return <img className='poke-type-1' src={`src\\assets\\${x.type.name}.png`} alt="pokeball" />
+                            return <img key={x.type.name} className='poke-type-1' src={`src\\assets\\${x.type.name}.png`} alt="pokeball" />
                         })}
                     </div>
                 </div>

@@ -1,21 +1,36 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button, Card, CardText, Col, Form, Input, Row } from "reactstrap"
+import { CommentCard } from "./CommentCard"
+import { RegisterCommentScreen } from "./RegisterCommentScreen"
 
 export function Comments() {
 
+    const [needToRegister, setNeedToRegister] = useState(false)
     const [comments, setComments] = useState<Array<any>>([])
+
+    useEffect(() => {
+        if(localStorage.getItem('user_data') === null) {
+            setNeedToRegister(true)
+        }
+    },[])
 
     async function handleSubmit(e: any) {
         e.preventDefault()
         if (e.target.comment.value.trim() === '') return
+        const user_data = JSON.parse((localStorage.getItem('user_data') as string))
+        
         const comment = {
             msg: e.target.comment.value,
-            user: 'Usuário',
+            user: user_data.name,
             created_at: new Date()
         }
         setComments([comment, ...comments])
         e.target.reset()
 
+    }
+
+    if(needToRegister){
+        return <RegisterCommentScreen toggleRegisterView={() => setNeedToRegister(false)}/>
     }
 
     return (
@@ -68,11 +83,10 @@ export function Comments() {
                     <div className="px-2" style={{
                         maxHeight: "230px",
                         overflowY: "auto",
-                width: '100%'
-
+                        width: '100%'
                     }}>
                         {comments.map((comment: any) => {
-                            return <Comment {...comment} />
+                            return <CommentCard key={comment.id} {...comment} />
                         })}
                     </div>
                 )}
@@ -80,28 +94,5 @@ export function Comments() {
             </div>
 
         </div>)
-
-}
-
-function Comment({ msg, user, created_at }: any) {
-    return (
-        <Card body className="p-2 px-3 my-2">
-            <span style={{
-                fontWeight: "600",
-                fontSize: "13px",
-                color: 'rgb(61, 48, 172)'
-            }}>{user}</span>
-            <Row>
-                <Col xs={8} style={{ textTransform: 'capitalize' }}>
-                    <CardText className="text-muted" style={{ fontSize: "12px", fontStyle: 'italic' }}>{msg}</CardText>
-                </Col>
-                <Col xs={4} >
-                    <CardText className="text-muted" style={{ fontSize: "12px", fontStyle: 'italic' }}>{created_at.toLocaleString()}</CardText>
-                </Col>
-            </Row>
-
-        </Card>
-    )
-
 
 }
