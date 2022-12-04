@@ -5,7 +5,7 @@ body{
   background-color: #2B3151 !important;
   margin:0; 
   padding:0;
-
+  overflow-x: hidden;
 }
 a {
   font-weight: 500;
@@ -22,6 +22,12 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  padding: 0;
+}
+
+:root{
+  margin: 0;
+  padding: 0;
 }
 
 h1 {

@@ -9,7 +9,7 @@ import PokemonService from './services/pokemon'
 function App() {
   const lastRef = useRef<any>()
   const [countPage, setCountPage] = useState(0)
-  const [pokemons, setPokemons ] = useState<Array<any>>([])
+  const [pokemons, setPokemons] = useState<Array<any>>([])
   const [modalState, setModalState] = useState({
     isOpen: false,
     pokemonId: null
@@ -17,33 +17,33 @@ function App() {
 
   const isLastVisible = useIsElementVisible(lastRef.current);
 
-  function getNewPokemons(){
-    PokemonService.getAllPokemons(countPage).then((response:any)=>{
-      setPokemons((prev:any)=>([...prev, ...response]))
+  function getNewPokemons() {
+    PokemonService.getAllPokemons(countPage).then((response: any) => {
+      setPokemons((prev: any) => ([...prev, ...response]))
     })
-    setCountPage(countPage+1)
+    setCountPage(countPage + 1)
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getNewPokemons()
-  },[])
+  }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     if (isLastVisible && pokemons.length > 0) {
       getNewPokemons()
     }
-  },[isLastVisible])
+  }, [isLastVisible])
 
   return (
     <>
-    <Modal onClose={()=>setModalState({ isOpen: false, pokemonId:null})} isOpen={ modalState.isOpen } children={<PokeInfoCard idPokemon={modalState.pokemonId}/>}/>
+      <Modal onClose={() => setModalState({ isOpen: false, pokemonId: null })} isOpen={modalState.isOpen} children={<PokeInfoCard idPokemon={modalState.pokemonId} />} />
 
-    <div className="App d-flex gap-5 mt-5 pt-5   flex-wrap pt-6 flex-items-center justify-content-center">
-      {pokemons.map((x)=><PokeCard onClick={()=> setModalState({ isOpen:true, pokemonId: x.id})} pokedata={x} />)}
-    </div>
-    {<div ref={lastRef} />}
-      <div className=' d-flex align-items-center justify-content-center' style={{ width:'99vw'}}>
-      <Loading/>
+      <div className="App d-flex gap-5 mt-5 pt-5   flex-wrap pt-6 flex-items-center justify-content-center">
+        {pokemons.map((x) => <PokeCard key={x.id} onClick={() => setModalState({ isOpen: true, pokemonId: x.id })} pokedata={x} />)}
+      </div>
+      {<div ref={lastRef} />}
+      <div className=' d-flex align-items-center justify-content-center my-5' style={{ width: '99vw' }}>
+        <Loading />
       </div>
     </>
   )

@@ -5,8 +5,8 @@ import PokemonService from '../../services/pokemon'
 import { Loading } from '../Loading'
 
 import LoadingImg from '../LoadingImage'
-import { About } from './components/About'
-import { Comments } from './components/Comments'
+import { About } from './About'
+import { Comments } from './Comments'
 import './index.css'
 
 export function PokeInfoCard({ idPokemon }: any) {
@@ -15,6 +15,7 @@ export function PokeInfoCard({ idPokemon }: any) {
     const [pokemonData, setPokemonData] = useState<any>()
 
     useEffect(()=>{
+        setActiveTab('1')
         setPokemonData(null)
         if(!idPokemon) return
         PokemonService.getPokemonById(idPokemon).then((response:any)=>{
@@ -30,7 +31,7 @@ export function PokeInfoCard({ idPokemon }: any) {
             fontSize: '25px',
         }}>{pokemonData.name}</h2>
         <img className='pokeball-img' src='https://cdn-icons-png.flaticon.com/512/1068/1068729.png' />
-        <LoadingImg className="pokemon" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${idPokemon}.png`} />
+        {idPokemon && <LoadingImg className="pokemon" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${idPokemon}.png`} />}
         <div className='info bg-white'>
             <Nav >
                 <NavItem className={activeTab==='1' ? 'tab-style' : ''}>
@@ -63,7 +64,7 @@ export function PokeInfoCard({ idPokemon }: any) {
                     <About data={pokemonData} />
                 </TabPane>
                 <TabPane tabId="2">
-                    <Comments data={pokemonData} />
+                    <Comments />
                 </TabPane>
             </TabContent>
         </div>
