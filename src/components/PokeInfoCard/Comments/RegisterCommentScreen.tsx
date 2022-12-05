@@ -1,15 +1,16 @@
 import { Button, Form, FormFeedback, FormGroup, FormText, Input, InputGroup, InputGroupText, Label, Row } from "reactstrap";
 
-export function RegisterCommentScreen({ toggleRegisterView }:any) {
+export function RegisterCommentScreen({ toggleRegisterView }:{
+    toggleRegisterView: () => void
+}) {
 
     function handleSubmit(e: any) {
         e.preventDefault()
-
-        if(!e.target[0].value.trim()) return
-        if(!e.target[1].value.trim()) return
+        if(!e.target.username.value.trim()) return
+        if(!e.target.email.value.trim()) return
 
         const data = {
-            name: e.target.name.value,
+            username: e.target.username.value,
             email: e.target.email.value,
         }
 
@@ -31,14 +32,14 @@ export function RegisterCommentScreen({ toggleRegisterView }:any) {
                     <InputGroupText style={{fontSize: "14px"}}>
                         Nome
                     </InputGroupText>
-                    <Input  style={{fontSize: "14px"}} name="name" placeholder="Insira seu nome" />
+                    <Input  style={{fontSize: "14px"}} id="username" name="username" placeholder="Insira seu nome" />
                 </InputGroup>
 
                 <InputGroup className="mt-3" >
                     <InputGroupText  style={{fontSize: "14px"}}>
                         E-mail
                     </InputGroupText>
-                    <Input style={{fontSize: "14px"}} name="email" placeholder="Insira seu nome" />
+                    <Input style={{fontSize: "14px"}} id="email" name="email" placeholder="Insira seu email" />
                 </InputGroup>
                 <Button style={{fontSize: "15px"}} className="mt-4 w-100" color="primary" outline> Entrar </Button>
             </Form>

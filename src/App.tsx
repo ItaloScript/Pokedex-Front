@@ -4,15 +4,23 @@ import { Modal } from './components/Modal'
 import { PokeCard } from './components/PokeCard'
 import { PokeInfoCard } from './components/PokeInfoCard'
 import { useIsElementVisible } from './hooks/useIsElementVisible'
-import PokemonService from './services/pokemon'
+import { IInitialPokemonData } from './interfaces/InitialPokemonData'
+import PokemonService from './services/pokemon.service'
+
+interface modalState {
+  isOpen: boolean
+  idPokemon: number | null
+}
+
+
 
 function App() {
   const lastRef = useRef<any>()
   const [countPage, setCountPage] = useState(0)
-  const [pokemons, setPokemons] = useState<Array<any>>([])
-  const [modalState, setModalState] = useState({
+  const [pokemons, setPokemons] = useState<Array<IInitialPokemonData>>([])
+  const [modalState, setModalState] = useState<modalState>({
     isOpen: false,
-    pokemonId: null
+    idPokemon: null
   })
 
   const isLastVisible = useIsElementVisible(lastRef.current);
@@ -36,14 +44,14 @@ function App() {
 
   return (
     <>
-      <Modal onClose={() => setModalState({ isOpen: false, pokemonId: null })} isOpen={modalState.isOpen} children={<PokeInfoCard idPokemon={modalState.pokemonId} />} />
+      <Modal onClose={() => setModalState({ isOpen: false, idPokemon: null })} isOpen={modalState.isOpen} children={modalState.idPokemon ? <PokeInfoCard idPokemon={modalState.idPokemon} /> : <></>} />
 
       <div className="App d-flex gap-5 mt-5 pt-5   flex-wrap pt-6 flex-items-center justify-content-center">
-        {pokemons.map((x) => <PokeCard key={x.id} onClick={() => setModalState({ isOpen: true, pokemonId: x.id })} pokedata={x} />)}
+        {pokemons.map((x) => <PokeCard key={x.id} onClick={() => setModalState({ isOpen: true, idPokemon: x.id })} pokedata={x} />)}
       </div>
       {<div ref={lastRef} />}
-      <div className=' d-flex align-items-center justify-content-center my-5' style={{ width: '99vw' }}>
-        <Loading />
+      <div data-testid="home-loading" className='d-flex align-items-center justify-content-center my-5' style={{ width: '99vw' }}>
+        <Loading  />
       </div>
     </>
   )

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { Button, Card, CardText, Col, Form, Input, Row } from "reactstrap"
-import CommentsService from "../../../services/comments"
+import CommentsService from "../../../services/comments.service"
 import { CommentCard } from "./CommentCard"
 import { RegisterCommentScreen } from "./RegisterCommentScreen"
 
-export function Comments({pokemonId, color}: {pokemonId: number, color:string}) {
+export function Comments({idPokemon, color}: {idPokemon: number, color:string}) {
 
     const [needToRegister, setNeedToRegister] = useState(false)
     const [comments, setComments] = useState<Array<any>>([])
@@ -16,10 +16,10 @@ export function Comments({pokemonId, color}: {pokemonId: number, color:string}) 
     },[])
 
     useEffect(()=>{
-        CommentsService.getCommentsByPokemonId(pokemonId).then((response:any)=>{
+        CommentsService.getCommentsByPokemonId(idPokemon).then((response:any)=>{
             setComments(response)
         })
-    },[pokemonId])
+    },[idPokemon])
 
 
     async function handleSubmit(e: any) {
@@ -29,9 +29,9 @@ export function Comments({pokemonId, color}: {pokemonId: number, color:string}) 
         
         const comment = await CommentsService.createComment({
             comment: e.target.comment.value,
-            name: user_data.name,
+            username: user_data.username,
             email: user_data.email,
-            pokemonId:  pokemonId
+            pokemonId:  idPokemon
         })
         
         setComments([comment, ...comments])

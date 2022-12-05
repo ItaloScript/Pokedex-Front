@@ -1,7 +1,12 @@
 import { useState } from "react"
 
-export default function LoadingImg({src,className,style={},styleLoading}:any){
-    
+//default interface from image element
+
+export const LoadingImage: React.FC<React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>,HTMLImageElement> & {
+        styleLoading? : React.CSSProperties
+    }
+> = ( { styleLoading, style, ...props}) => {
+
     const [loading, setLoading] = useState<boolean>(true)
 
     return (
@@ -9,12 +14,9 @@ export default function LoadingImg({src,className,style={},styleLoading}:any){
         <div className={"spinner-border text-light "} style={{
             display: (!loading) ? 'none' : 'block',
             ...styleLoading
-            
         }} role="status">
         </div>
-        <img onLoad={() => {
-            setLoading(false)
-        }} src={src} className={className} style={{...style,display: (loading) ? 'none' : 'block'}} />
+        <img onLoad={() => {setLoading(false)}} style={{...style,display: (loading) ? 'none' : 'block'}} {...props} />
         </>
     )
 }

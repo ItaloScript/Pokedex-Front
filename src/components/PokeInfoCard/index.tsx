@@ -1,24 +1,26 @@
 import { useEffect, useState } from 'react'
-import { Nav, Button, Card, CardText, CardTitle, Col, NavItem, NavLink, TabPane, TabContent, Row } from 'reactstrap'
+import { Nav, NavItem, NavLink, TabPane, TabContent } from 'reactstrap'
 import { typeColor } from '../../constants/typeColor'
-import PokemonService from '../../services/pokemon'
+import { IPokemon } from '../../interfaces/Pokemon'
+import PokemonService from '../../services/pokemon.service'
 import { Loading } from '../Loading'
+import { LoadingImage } from '../LoadingImage'
 
-import LoadingImg from '../LoadingImage'
 import { About } from './About'
 import { Comments } from './Comments'
 import './index.css'
 
-export function PokeInfoCard({ idPokemon }: any) {
+
+export function PokeInfoCard({ idPokemon }: { idPokemon: number}) {
 
     const [activeTab, setActiveTab] = useState('1')
-    const [pokemonData, setPokemonData] = useState<any>()
+    const [pokemonData, setPokemonData] = useState<IPokemon | null>()
 
     useEffect(()=>{
         setActiveTab('1')
         setPokemonData(null)
         if(!idPokemon) return
-        PokemonService.getPokemonById(idPokemon).then((response:any)=>{
+        PokemonService.getPokemonById(idPokemon).then((response:IPokemon)=>{
             setPokemonData(response)
         })
     },[idPokemon])
@@ -31,7 +33,7 @@ export function PokeInfoCard({ idPokemon }: any) {
             fontSize: '25px',
         }}>{pokemonData.name}</h2>
         <img className='pokeball-img' src='https://cdn-icons-png.flaticon.com/512/1068/1068729.png' />
-        {idPokemon && <LoadingImg className="pokemon" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${idPokemon}.png`} />}
+        {idPokemon && <LoadingImage data-testid="poke-info-image" className="pokemon" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${idPokemon}.png`} />}
         <div className='info bg-white'>
             <Nav >
                 <NavItem className={activeTab==='1' ? 'tab-style' : ''}>
@@ -64,7 +66,7 @@ export function PokeInfoCard({ idPokemon }: any) {
                     <About data={pokemonData} />
                 </TabPane>
                 <TabPane tabId="2">
-                    <Comments color={typeColor[pokemonData.types[0].type.name]} pokemonId={pokemonData.id} />
+                    <Comments color={typeColor[pokemonData.types[0].type.name]} idPokemon={pokemonData.id} />
                 </TabPane>
             </TabContent>
         </div>

@@ -1,13 +1,18 @@
 import { Card, CardText, Col, Row } from "reactstrap";
 
-export function CommentCard({ comment, name, created_at, color }: any) {
+export function CommentCard({ comment, username, created_at, color }: {
+    comment: string,
+    username: string,
+    created_at: any,
+    color: string
+}) {
     return (
         <Card body className="p-2 px-3 my-2">
             <span style={{
                 fontWeight: "600",
                 fontSize: "13px",
                 color: color
-            }}>{name}</span>
+            }}>{username}</span>
             <Row>
                 <Col xs={8} style={{ textTransform: 'capitalize' }}>
                     <CardText className="text-muted" style={{ fontSize: "12px", fontStyle: 'italic' }}>{comment}</CardText>

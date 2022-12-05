@@ -1,11 +1,11 @@
-import LoadingImg from '../LoadingImage'
+import { LoadingImage } from '../LoadingImage'
 import './index.css'
 export function PokeCard({ pokedata, onClick}: any) {
 
     const height = parseInt(pokedata.height) / 10
     return (
         <div onClick={onClick} className="poke-card m-2" >
-            <LoadingImg styleLoading={{
+            <LoadingImage styleLoading={{
                 position: 'absolute',
                 top: '40px'
             }}  className="poke-card-image" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokedata.id}.png`} />

@@ -5,7 +5,7 @@ export default class CommentsService{
     private constructor(){}
 
     static async createComment(commentData:{
-        name: string,
+        username: string,
         comment: string,
         pokemonId: number,
         email: string
