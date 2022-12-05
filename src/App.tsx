@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { Loading } from './components/Loading'
-import { Modal } from './components/Modal'
 import { PokeCard } from './components/PokeCard'
 import { PokeInfoCard } from './components/PokeInfoCard'
 import { useIsElementVisible } from './hooks/useIsElementVisible'
