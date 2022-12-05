@@ -42,17 +42,19 @@ function App() {
   }, [isLastVisible])
 
   return (
-    <>
+    <div style={{
+      marginTop: '100px',
+    }}>
     {modalState.idPokemon ? <PokeInfoCard  onClose={() => setModalState({ isOpen: false, idPokemon: null })} isOpen={modalState.isOpen} idPokemon={modalState.idPokemon} /> : <></>}
 
-      <div className="App d-flex gap-5 mt-5 pt-5 mb-5   flex-wrap pt-6 flex-items-center justify-content-center">
+      <div   className="App d-flex gap-5 mb-5 pb-6 flex-wrap flex-items-center justify-content-center">
         {pokemons.map((x) => <PokeCard key={x.id} onClick={() => setModalState({ isOpen: true, idPokemon: x.id })} pokedata={x} />)}
       </div>
-      {<div ref={lastRef} />}
+      {<div  ref={lastRef} />}
       <div data-testid="home-loading" className='d-flex align-items-center justify-content-center my-5' style={{ width: '99vw' }}>
         <Loading  />
       </div>
-    </>
+    </div>
   )
 }
 
