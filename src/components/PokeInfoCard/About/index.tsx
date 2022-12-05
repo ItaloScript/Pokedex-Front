@@ -1,7 +1,8 @@
 import { Col, Progress, Row } from "reactstrap";
 import { statsList } from "../../../constants/statsList";
+import { IPokemon } from "../../../interfaces/pokemon.interface";
 
-export function About({data}:any) {
+export function About({data}:{data:IPokemon}) {
 
    
     return (
@@ -18,7 +19,7 @@ export function About({data}:any) {
                     fontStyle: "italic",
                     marginLeft: "1rem",
                 }}>
-                    {data.species.flavor_text_entries.find((item:any)=>item.language.name === 'en')
+                    {(data.species.flavor_text_entries.find((item)=>item.language.name === 'en') as IPokemon['species']['flavor_text_entries']['0'])
                     .flavor_text.replace(//g, ' ').replace('POKéMON','pokemon')
                     .replace(/(\w)(\w*)/g,(_:string,g1:string,g2:string)=>g1.toUpperCase() + g2.toLowerCase())}
                 </p>
@@ -26,7 +27,7 @@ export function About({data}:any) {
 
             </div>
 
-            {data.stats.map((item:any)=>(
+            {data.stats.map((item)=>(
                 <Row id={item.stat.name} key={item.stat.name} className="d-flex mx-1 mb-3  align-items-center" style={{ fontSize: '14px' }}>
                 <Col style={{ fontWeight: '600', color: '#00000068', margin:0, padding:0 }} xs={4}> {statsList[item.stat.name].name}</Col>
                 <Col xs={2}> { item.base_stat}</Col>

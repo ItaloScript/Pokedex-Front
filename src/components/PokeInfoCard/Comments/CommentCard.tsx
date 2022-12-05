@@ -3,7 +3,9 @@ import { Card, CardText, Col, Row } from "reactstrap";
 export function CommentCard({ comment, username, created_at, color }: {
     comment: string,
     username: string,
-    created_at: any,
+    created_at: {
+        _seconds: number
+    },
     color: string
 }) {
     return (

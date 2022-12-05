@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Nav, NavItem, NavLink, TabPane, TabContent } from 'reactstrap'
 import { typeColor } from '../../constants/typeColor'
-import { IPokemon } from '../../interfaces/Pokemon'
+import { IPokemon } from '../../interfaces/pokemon.interface'
 import PokemonService from '../../services/pokemon.service'
 import { Loading } from '../Loading'
 import { LoadingImage } from '../LoadingImage'

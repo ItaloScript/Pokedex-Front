@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Button, Card, CardText, Col, Form, Input, Row } from "reactstrap"
+import { IComment } from "../../../interfaces/comment.interface"
 import CommentsService from "../../../services/comments.service"
 import { CommentCard } from "./CommentCard"
 import { RegisterCommentScreen } from "./RegisterCommentScreen"
@@ -7,7 +8,7 @@ import { RegisterCommentScreen } from "./RegisterCommentScreen"
 export function Comments({idPokemon, color}: {idPokemon: number, color:string}) {
 
     const [needToRegister, setNeedToRegister] = useState(false)
-    const [comments, setComments] = useState<Array<any>>([])
+    const [comments, setComments] = useState<Array<IComment>>([])
 
     useEffect(() => {
         if(localStorage.getItem('user_data') === null) {
@@ -16,7 +17,7 @@ export function Comments({idPokemon, color}: {idPokemon: number, color:string}) 
     },[])
 
     useEffect(()=>{
-        CommentsService.getCommentsByPokemonId(idPokemon).then((response:any)=>{
+        CommentsService.getCommentsByPokemonId(idPokemon).then((response:Array<IComment>)=>{
             setComments(response)
         })
     },[idPokemon])
@@ -96,8 +97,8 @@ export function Comments({idPokemon, color}: {idPokemon: number, color:string}) 
                         width: '100%'
                     }}>
                         {[...comments].sort(
-                            (a:any, b:any) => new Date(b.created_at._seconds*1000).getTime() - new Date(a.created_at._seconds*1000).getTime() 
-                        ).map((comment: any) => {
+                            (a:IComment, b:IComment) => new Date(b.created_at._seconds*1000).getTime() - new Date(a.created_at._seconds*1000).getTime() 
+                        ).map((comment) => {
                             return <CommentCard key={comment.id} {...comment} color={color} />
                         })}
                     </div>

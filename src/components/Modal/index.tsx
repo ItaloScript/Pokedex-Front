@@ -1,6 +1,10 @@
 import './index.css'
 
-export function Modal({ children, isOpen, onClose }: any) {
+export function Modal({ children, isOpen, onClose }: {
+    children: any,
+    isOpen: boolean,
+    onClose: () => void
+}) {
    return (
     <div data-testid="modal" className={"modal "+ (isOpen ? 'd-flex' : 'd-none')}>
       <section className="modal-main">

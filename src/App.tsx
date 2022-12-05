@@ -4,7 +4,7 @@ import { Modal } from './components/Modal'
 import { PokeCard } from './components/PokeCard'
 import { PokeInfoCard } from './components/PokeInfoCard'
 import { useIsElementVisible } from './hooks/useIsElementVisible'
-import { IInitialPokemonData } from './interfaces/InitialPokemonData'
+import { IInitialPokemonData } from './interfaces/initial-pokemon-data.interface'
 import PokemonService from './services/pokemon.service'
 
 interface modalState {
@@ -26,8 +26,8 @@ function App() {
   const isLastVisible = useIsElementVisible(lastRef.current);
 
   function getNewPokemons() {
-    PokemonService.getAllPokemons(countPage).then((response: any) => {
-      setPokemons((prev: any) => ([...prev, ...response]))
+    PokemonService.getAllPokemons(countPage).then((response: Array<IInitialPokemonData>) => {
+      setPokemons((prev) => ([...prev, ...response]))
     })
     setCountPage(countPage + 1)
   }
