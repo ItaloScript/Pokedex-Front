@@ -2,7 +2,7 @@ import { getByTestId, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import App from '../App';
 
-jest.setTimeout(10000)
+jest.setTimeout(20000)
 
 describe(' App Component', () => {
 
@@ -37,17 +37,18 @@ describe(' App Component', () => {
     });
 
     it('should close modal when user click on close button', async () => {
-        const { findByText, findByTestId,getByTestId} = render(<App />);
+        const { findByText, findByTestId,queryByTestId, container} = render(<App />);
         
         const pokemon = await waitFor(async () => {
             return await findByText('bulbasaur')
         },{timeout: 10000});
+
         await userEvent.click(pokemon);
 
         const closeButton = await findByTestId('close-button');
         await userEvent.click(closeButton);
         await waitFor(async() => {
-            expect(getByTestId('modal')).toHaveClass('d-none');
+            expect(queryByTestId('modal')).not.toBeInTheDocument();
         }, {timeout: 10000})
 
     });
