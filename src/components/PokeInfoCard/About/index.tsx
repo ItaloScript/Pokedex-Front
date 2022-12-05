@@ -10,6 +10,7 @@ export function About({data}:{data:IPokemon}) {
             <div className="d-flex pt-4">
                 <img className="float-left" style={{
                     width: "100px",
+                    height:"100px"
                 }}
                     src={data.sprites.front_default}
                 />
