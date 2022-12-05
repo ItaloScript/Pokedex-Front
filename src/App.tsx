@@ -44,7 +44,7 @@ function App() {
 
   return (
     <>
-      <Modal onClose={() => setModalState({ isOpen: false, idPokemon: null })} isOpen={modalState.isOpen} children={modalState.idPokemon ? <PokeInfoCard idPokemon={modalState.idPokemon} /> : <></>} />
+    {modalState.idPokemon ? <PokeInfoCard  onClose={() => setModalState({ isOpen: false, idPokemon: null })} isOpen={modalState.isOpen} idPokemon={modalState.idPokemon} /> : <></>}
 
       <div className="App d-flex gap-5 mt-5 pt-5 mb-5   flex-wrap pt-6 flex-items-center justify-content-center">
         {pokemons.map((x) => <PokeCard key={x.id} onClick={() => setModalState({ isOpen: true, idPokemon: x.id })} pokedata={x} />)}
