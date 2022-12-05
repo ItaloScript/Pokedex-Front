@@ -309,7 +309,7 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
-"@babel/template@^7.18.10", "@babel/template@^7.3.3":
+"@babel/template@^7.18.10", "@babel/template@^7.3.3", "@babel/template@^7.4.4":
   version "7.18.10"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.18.10.tgz#6f9134835970d1dbf0835c0d100c9f38de0c5e71"
   integrity sha512-TI+rCtooWHr3QJ27kJxfjutghu44DLnasDMwpDqCXVTal9RLp3RSYNh4NdBrRP2cQAoG9A8juOQl6P6oZG4JxA==
@@ -1125,6 +1125,14 @@ babel-plugin-jest-hoist@^29.2.0:
     "@babel/types" "^7.3.3"
     "@types/babel__core" "^7.1.14"
     "@types/babel__traverse" "^7.0.6"
+
+babel-plugin-transform-import-meta@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-import-meta/-/babel-plugin-transform-import-meta-2.2.0.tgz#a8a6a9a1bcb8e75ac5a44c6848bf1deb4ebfeb78"
+  integrity sha512-+DNF2SJAj2Pd0b1sObz+hyzNgUlI9DccPtMcF7ulMM0BxPrMF83ERjvPQwcQ9FRFSddWcC7DOw0FuyWgkQRoqg==
+  dependencies:
+    "@babel/template" "^7.4.4"
+    tslib "^2.4.0"
 
 babel-preset-current-node-syntax@^1.0.0:
   version "1.0.1"
@@ -3370,6 +3378,11 @@ ts-node@^10.9.1:
     make-error "^1.1.1"
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
+
+tslib@^2.4.0:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
+  integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
 
 type-check@~0.3.2:
   version "0.3.2"
